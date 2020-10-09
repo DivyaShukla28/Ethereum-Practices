@@ -1,0 +1,77 @@
+pragma solidity ^0.7.2;
+
+contract SupplyChains{
+    
+    struct stakeholders {
+        
+        uint sId;
+        string Sname;
+        string Loatiom;
+        uint productCount;
+        address Id;
+        
+        }
+        
+    struct product {
+        uint productId;
+        string Pname;
+        uint price;
+        uint date;
+        uint manufacturerId;
+        uint supplierId;
+        uint retailerId;
+        address currentOwner;
+        
+    }    
+    address manufacturerId;
+    address supplierId;
+    address retailerId;
+    address productId;
+    
+    
+        mapping (address => manufacturerId) manufacturerIdmap;
+        mapping (address => supplierId) supplierIdmap;
+        mapping (address => retailerId) retailerIdmap;
+        mapping (address => product) productmap;
+        
+        constructor () public {
+        owner = msg.sender;
+
+ }     
+ modifier ifowner(){
+
+        require (manufacturerId == msg.sender);
+        require (supplierId == msg.sender);
+        require (retailerId == msg.sender);
+        
+        _;
+        
+}
+
+ function enrollEntity (address _address,uint _sId,string memory _sName,string memory _Location,uint _productCount) public ifowner {
+     
+        stakeholderss[_address].Id = _Id;
+        stakeholderss[_address].sId = _sId;
+        stakeholderss[_address].sname = _sname;
+        stakeholderss[_address].Location = _Location;
+        stakeholderss[_address].productCount = _productCount;
+        stakeholdersAccts.push(_address) +1;
+        
+ }
+function updatedetails (address _address,uint _sId,string memory _sName,string memory _Location,uint _productCount) public {
+    
+        stakeholderss[_address].Id = _Id;
+        stakeholderss[_address].sId = _sId;
+        stakeholderss[_address].sname = _sname;
+        stakeholderss[_address].Location = _Location;
+        stakeholderss[_address].productCount = _productCount;
+        
+}   
+
+fuction getManufacturerIdDetails((address _address) view public returns (uint,uint,string){
+    
+    return (
+    
+}
+
+
