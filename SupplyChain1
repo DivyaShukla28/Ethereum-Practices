@@ -1,0 +1,98 @@
+pragma solidity ^0.7.2;
+
+contract SupplyChains{
+    
+    struct stakeholders {
+        
+        uint sId; // 123
+        string sname; // diya
+        string stakeholderType; //  Manufacturer / retailer
+        string Location;
+        uint[] productIds; //123,124.126,165
+      
+        
+        }
+        
+    struct product {
+        uint productId;
+        string Pname;
+        uint priceAtManufacturer;
+        uint manufacturerId;
+        uint supplierId;
+        uint retailerId;
+        address currentOwner;
+        
+    }    
+    address manufacturerId;
+    address supplierId;
+    address retailerId;
+    address productId;
+    
+    
+        mapping (address => manufacturerId) manufacturerIdmap;
+        mapping (address => supplierId) supplierIdmap;
+        mapping (address => retailerId) retailerIdmap;
+        mapping (address => productId) productmap;
+        
+     
+ modifier ifManufacturer(){
+
+        require (msg.sender == 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4);
+        _;
+     
+ }
+ modifier ifSupplier(){
+     
+        require (msg.sender == 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2);
+        _;
+ }
+ modifier ifRetailer(){
+     
+        require (msg.sender == 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db);
+        
+        _;
+}
+
+modifier toEnroll(){
+    require(msg.sender == 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02d || 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2 || 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4 ) ;
+    _;
+}
+
+ function enrollEntity (address _address,uint _sId,string memory _sname,string memory _stakeholderType,string memory _Location,uint _productIds) public {
+     
+        stakeholders[_address].sId = _sId;
+        stakeholders[_address].sname = _sname;
+        stakeholders[_address].stakeholderType = _stakeholderType;
+        stakeholders[_address].Location = _Location;
+        stakeholders[_address].productIds = _productIds;
+        stakeholders.push(_address) +1;
+        
+ }
+function updatedetails (address _address,uint _sId,string memory _sname,string memory _stakeholderType,string memory _Location,uint _productIds) public {
+
+       
+        stakeholders[_address].sId = _sId;
+        stakeholders[_address].sname = _sname;
+        stakeholders[_address].stakeholderType = _stakeholderType;
+        stakeholders[_address].Location = _Location;
+        stakeholders[_address].productIds = _productIds;
+        
+}   
+
+function getManufacturerIdDetails(address _address) view public returns (uint,string memory,string memory,string memory,uint){
+    
+    return ( stakeholders[_address].sId,stakeholders[_address].sname,stakeholders[_address].stakeholderType,stakeholders[_address].Location);
+    
+}
+function getSupplierIdDetails(address _address) view public returns (uint,string memory,string memory,string memory,uint){
+    
+    return ( stakeholders[_address].sId,stakeholders[_address].sname,stakeholders[_address].stakeholderType,stakeholders[_address].Location);
+    
+}
+
+function getRetailerIdDetails(address _address) view public returns (uint,string memory,string memory,string memory,uint){
+    
+    return ( stakeholders[_address].sId,stakeholders[_address].sname,stakeholders[_address].stakeholderType,stakeholders[_address].Location);
+    
+}
+}
